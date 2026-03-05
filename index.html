@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tugas OOP Rado aditiya</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  background:#0f2027;
+  overflow-x:hidden;
+  color:white;
+}
+
+.dark{
+  background:#111;
+  color:white;
+}
+
+/* tombol */
+button{
+    padding:12px 25px;
+    font-size:24px;
+    border:none;
+    border-radius:8px;
+    background:#00c6ff;
+    color:white;
+    cursor:pointer;
+}
+
+/* background popup */
+.popup{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+/* isi popup */
+.popup-content{
+    background:white;
+    color:black;
+    padding:10px;
+    width:550px;
+    border-radius:20px;
+    text-align:center;
+    animation: muncul 0.4s ease;
+}
+
+/* animasi */
+@keyframes muncul{
+    from{
+        transform:scale(0.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* tombol close */
+.close{
+    float:right;
+    font-size:20px;
+    cursor:pointer;
+}
+/* LOADER */
+#loader{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:#0f2027;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.loader-circle{
+  width:80px;
+  height:80px;
+  border:6px solid #fff;
+  border-top:6px solid #00f2ff;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  100%{transform:rotate(360deg);}
+}
+
+/* PARTICLE BACKGROUND */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* HEADER */
+header{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+header h1{
+  font-size:45px;
+}
+
+.cursor{
+  display:inline-block;
+  width:3px;
+  background:white;
+  animation:blink 0.8s infinite;
+}
+
+@keyframes blink{
+  50%{opacity:0;}
+}
+
+/* NAVBAR */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.5);
+  text-align:center;
+  z-index:1000;
+}
+
+nav a{
+  margin:0 15px;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#00f2ff;
+}
+
+/* SECTION */
+section{
+  padding:100px 10%;
+  opacity:0;
+  transform:translateY(80px);
+  transition:1s;
+}
+
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* GLASS CARD */
+.card{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  margin-bottom:30px;
+  transition:0.5s;
+  transform-style:preserve-3d;
+}
+
+.card:hover{
+  transform:rotateY(8deg) rotateX(5deg) scale(1.05);
+}
+
+/* CODE */
+pre{
+  background:#111;
+  padding:20px;
+  border-radius:15px;
+  overflow-x:auto;
+  color:#00f2ff;
+}
+
+/* DARK MODE BUTTON */
+.toggle{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  padding:12px 18px;
+  border:none;
+  border-radius:30px;
+  background:#00f2ff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">
+  <div class="loader-circle"></div>
+</div>
+
+<canvas id="particles"></canvas>
+
+<nav>
+  <a href="#materi">Materi</a>
+  <a href="#konsep">konsep</a>
+  <a href="#contoh1">Contoh</a>
+  <a href="#kesimpulan">Kesimpulan</a>
+  <a href="#Quis class">Quos class</a>
+</nav>
+
+<header>
+  <h1 id="typing"></h1><span class="cursor"></span>
+  <p>Nama: Rado Aditiya</p> 
+    <div>
+      </div>
+      <p>Nim: 251410012 </p>
+</header>
+
+<section id="materi">
+  <div class="card">
+    <h2>Object Oriented Programming (OOP)</h2>
+    <p>OOP adalah paradigma yang berfokus pada penggunaan "object" untuk mempresentasikan data dan perilaku. Alih alih memandang program sebagai serangkaian instruksi prosedural,oop memandang sebagai kumpulan objek yang saling berinteraksi.</p>
+  </div>
+</section>
+
+<section id="konsep">
+    <div class="card">
+        <h2> Konsep dasar OOP</h2>
+        <p>1. objek(object):
+            <div>objek adalah instance dari sebuuah class,
+                objek memiliki state (data/atribut) dan bavior (perolaku/metode)
+            </div>
+            <div>2.class(kelas):</div>
+            <div>class adalah blueprint atau templete untuk membuat objek,class mendefinisikan struktur dan perilaku yang akan di miliki objek objek nya</div>
+        </p>
+    </div>
+</section>
+
+<section id="contoh1">
+  <div class="card">
+    <h2>1.contoh class sederhana (car)</h2>
+    <button onclick="bukaApp('popup1')">run</button>
+    <div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="tutupApp('popup1')">✖</span>
+
+    <iframe src="https://dartpad.dev/6cb92b97205ce2b7676339bb98657d75"
+    width="100%" height="400"></iframe>
+
+  </div>
+</div>
+<code><pre>
+      class Car {
+  String brand;
+  String color;
+  int year;
+
+  void start() {
+    print("Mobil $brand sedang dinyalakan");
+  }
+
+  void info() {
+    print("Brand: $brand");
+    print("Color: $color");
+    print("Year: $year");
+  }
+}
+
+void main() {
+  Car myCar = Car();
+
+  myCar.brand = "Toyota";
+  myCar.color = "Hitam";
+  myCar.year = 2022;
+
+  myCar.info();
+  myCar.start();
+}
+    </code></pre>
+    <p> Class adalah cetak biru (blueprint) atau rancangan untuk membuat sebuah objek.
+Di dalam class biasanya terdapat atribut (data) dan method (fungsi).</p>
+  </div>
+</section>
+
+<section id="contoh2">
+  <div class="card">
+    <h2>2.contoh constructor</h2>
+    <button onclick="bukaApp('popup2')">run</button>
+    <div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="tutupApp('popup2')">✖</span>
+
+    <iframe src="https://dartpad.dev/6cb92b97205ce2b7676339bb98657d75"
+    width="100%" height="400"></iframe>
+
+  </div>
+</div>
+    <code><pre>
+      class Produk {
+  String nama;
+  int harga;
+
+  // Constructor
+  Produk(this.nama, this.harga);
+
+  void tampilkan() {
+    print("Nama Produk: $nama");
+    print("Harga: $harga");
+  }
+}
+
+void main() {
+  var produk1 = Produk("iphone", 8000000);
+  var produk2 = Produk("charger", 150000);
+
+  produk1.tampilkan();
+  produk2.tampilkan();
+}
+    </code></pre>
+    <p>Constructor digunakan untuk menginisialisasi nilai atribut saat objek dibuat.</p>
+  </div>
+</section>
+
+<section id="contoh3">
+  <div class="card">
+    <h2>3.contoh Validasi Data (Class Mahasiswa)</h2>
+    <button onclick="bukaApp('popup3')">run</button>
+    <div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="tutupApp('popup3')">✖</span>
+
+    <iframe src="https://dartpad.dev/6cb92b97205ce2b7676339bb98657d75"
+    width="100%" height="400"></iframe>
+
+  </div>
+</div> 
+    <code><pre>
+      class Mahasiswa {
+  String nama;
+  String nim;
+  double nilai;
+
+  // Constructor
+  Mahasiswa(this.nama, this.nim, this.nilai);
+
+  // Method validasi
+  void validasiData() {
+    if (nama.isEmpty) {
+      print("Nama tidak boleh kosong");
+    }
+
+    if (nim.isEmpty) {
+      print("NIM tidak boleh kosong");
+    }
+
+    if (nilai < 0 || nilai > 100) {
+      print("Nilai harus antara 0 - 100");
+    }
+  }
+
+  void tampilkanData() {
+    print("Nama: $nama");
+    print("NIM: $nim");
+    print("Nilai: $nilai");
+  }
+}
+
+void main() {
+  Mahasiswa mhs1 = Mahasiswa("Rado Aditiya", "251410012", 100);
+
+  mhs1.validasiData();
+  mhs1.tampilkanData();
+}
+    </code></pre>
+    <p>Contoh ini menunjukkan validasi data pada constructor untuk memastikan IPK dalam rentang 0.0 - 4.0.</p>
+  </div>
+</section>
+
+<section id="contoh4">
+  <div class="card">
+    <h2>4.contoh Encapsulation</h2>
+    <button onclick="bukaApp('popup4')">run</button>
+    <div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="tutupApp('popup4')">✖</span>
+
+    <iframe src="https://dartpad.dev/6cb92b97205ce2b7676339bb98657d75"
+    width="100%" height="400"></iframe>
+
+  </div>
+</div>
+    <code><pre>
+      class RekeningBank {
+  String _namaPemilik;
+  double _saldo;
+
+  // Constructor
+  RekeningBank(this._namaPemilik, this._saldo);
+
+  // Getter
+  double getSaldo() {
+    return _saldo;
+  }
+
+  // Setter
+  void setSaldo(double jumlah) {
+    _saldo = jumlah;
+  }
+
+  void tampilkanData() {
+    print("Nama Pemilik: $_namaPemilik");
+    print("Saldo: $_saldo");
+  }
+}
+
+void main() {
+  var rekening = RekeningBank("Rado", 1000000);
+
+  rekening.tampilkanData();
+
+  // Mengubah saldo menggunakan setter
+  rekening.setSaldo(2000000);
+
+  print("Saldo baru: ${rekening.getSaldo()}");
+}
+    </code></pre>
+    <p>Encapsulation membatasi akses langsung ke atribut menggunakan setter dan getter.</p>
+  </div>
+</section>
+
+<section id="contoh5">
+  <div class="card">
+    <h2>5.contoh Constructor dengan Named Parameter</h2>
+    <button onclick="bukaApp('popup5')">run</button>
+    <div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="tutupApp('popup5')">✖</span>
+
+    <iframe src="https://dartpad.dev/6cb92b97205ce2b7676339bb98657d75"
+    width="100%" height="400"></iframe>
+
+  </div>
+</div>
+    <code><pre>
+      class Produk {
+  String nama;
+  int harga;
+  String kategori;
+
+  // Constructor dengan Named Parameter
+  Produk({required this.nama, required this.harga, required this.kategori});
+
+  void tampilkanProduk() {
+    print("Nama Produk: $nama");
+    print("Harga: $harga");
+    print("Kategori: $kategori");
+  }
+}
+
+void main() {
+  var produk1 = Produk(
+    nama: "Laptop",
+    harga: 8000000,
+    kategori: "Elektronik"
+  );
+
+  produk1.tampilkanProduk();
+}
+    </code></pre>
+    <p>Named parameter constructor membuat kode lebih rapi dan mudah dibaca.</p>
+  </div>
+</section>
+
+<section id="kesimpulan">
+  <div class="card">
+    <h2>Kesimpulan</h2>
+    <p>Materi ini membahas dasar-dasar Object-Oriented Programming (OOP) di Dart. OOP adalah paradigma pemrograman yang berfokus pada objek, di mana objek memiliki atribut (data) dan metode (perilaku). Kelas berfungsi sebagai blueprint untuk membuat objek, sedangkan objek adalah instance dari kelas tersebut.Secara umum, OOP membantu membuat program lebih terstruktur, modular, mudah dikembangkan, dan mudah dipelihara, terutama untuk aplikasi yang kompleks.</p>
+  </div>
+</section>
+
+<section id="Quis bonus">
+  <div class="card">
+    <h2>Quis bonus: Hewan class</h2>
+    <button onclick="bukaApp('popup6')">run</button>
+    <div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="tutupApp('popup6')">✖</span>
+
+    <iframe src="https://dartpad.dev/6cb92b97205ce2b7676339bb98657d75"
+    width="100%" height="400"></iframe>
+
+  </div>
+</div>
+ <code><pre>
+      class Hewan {
+  String nama = "";
+
+  void bersuara() {
+    print("$nama sedang bersuara");
+  }
+}
+
+void main() {
+  Hewan hewan1 = Hewan();
+
+  hewan1.nama = "burung";
+  hewan1.bersuara();
+}
+    </code></pre>
+
+<footer>
+  &copy; 2026 Tugas OOP Dart
+</footer>
+
+<button class="toggle" onclick="toggleDark()">🌙 Dark Mode</button>
+
+<script>
+// LOADER
+window.onload = function(){
+  document.getElementById("loader").style.display="none";
+}
+
+// TYPING EFFECT
+const text="OOP(Objek Oriented programming)";
+let i=0;
+function typing(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typing,50);
+  }
+}
+typing();
+
+// SCROLL REVEAL
+window.addEventListener("scroll",()=>{
+  document.querySelectorAll("section").forEach(sec=>{
+    if(sec.getBoundingClientRect().top < window.innerHeight-100){
+      sec.classList.add("show");
+    }
+  });
+});
+
+// DARK MODE
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+// PARTICLE BACKGROUND
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<80;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*3+1,
+    dx:Math.random()-0.5,
+    dy:Math.random()-0.5
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#00f2ff";
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.x+=p.dx;
+    p.y+=p.dy;
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+function bukaApp(id){
+document.getElementById(id).style.display="flex";
+}
+
+function tutupApp(id){
+document.getElementById(id).style.display="none";
+}
+</script>
+
+</body>
+</html>
